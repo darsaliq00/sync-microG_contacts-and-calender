@@ -2,8 +2,8 @@ name: Create and Publish Release
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -22,5 +22,9 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: module.zip
+        tag_name: ${{ github.ref }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Get the URL of the created release
+      run: echo "Release URL: ${{ steps.create_release.outputs.html_url }}"
