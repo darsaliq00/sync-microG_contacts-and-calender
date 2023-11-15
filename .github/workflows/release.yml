@@ -3,22 +3,17 @@ on:
   push:
     branches:
       - main
-on:
-  release:
-    types: [published]
-
 jobs:
   create-zip:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Create zip
-        run: |
-          zip -r release.zip .
-
+       - uses: actions/checkout@master
+    - name: Archive Release
+      uses: thedoctor0/zip-release@0.7.5
+      with:
+        type: 'zip'
+        filename: 'release.zip'
       - name: Upload release asset
         uses: actions/upload-release-asset@v1
         env:
