@@ -1,6 +1,6 @@
 {
     "version": "1.0",
-    "versionCode":01,
+    "versionCode":100,
     "zipUrl": "https://github.com/darsaliq00/sync-microG_contacts-and-calender/releases/latest/download/@(ModuleName).zip",
     "changelog": "https://raw.githubusercontent.com/darsaliq00/sync-microG_contacts-and-calender/master/changelog.md"
 }
