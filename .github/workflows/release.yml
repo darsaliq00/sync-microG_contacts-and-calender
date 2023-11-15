@@ -28,5 +28,3 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Get the URL of the created release
-      run: echo "Release URL: ${{ steps.create_release.outputs.html_url }}"
