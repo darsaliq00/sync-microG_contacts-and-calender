@@ -15,6 +15,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Read version from update.json
+      id: version
+      run: echo "::set-output name=version::$(jq -r .version update.json)"
+
     - name: Create zip file
       run: |
         zip -r module.zip META-INF system module.prop readme.md
@@ -24,7 +28,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: module.zip
-        tag_name: ${{ github.ref }}
+        tag_name: v${{ steps.version.outputs.version }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
