@@ -20,9 +20,7 @@ jobs:
       run: echo "::set-output name=version::$(jq -r .version update.json)"
 
     - name: Create zip file
-      run: |
-        cd sync-microG_contacts-and-calender
-        zip -r microG-sync-contacts-and-calendar.zip META-INF system module.prop readme.md
+      run: zip -r microG-sync-contacts-and-calendar.zip META-INF system module.prop readme.md
 
     - name: Create GitHub Release
       id: create_release
