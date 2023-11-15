@@ -1,26 +1,27 @@
-name: Create Archive
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-    - uses: actions/checkout@master
-    - name: Archive Release
-      uses: thedoctor0/zip-release@main
-      with:
-        type: 'zip'
-        filename: '@(ModuleName).zip'
-        exclusions: '*.git* /*node_modules/* .editorconfig changelog.md update.json LICENSE setup.py README.md'
+name: Create zip and upload to release
 
-    - name: Upload Release
-      uses: ncipollo/release-action@v1
-      with:
-        artifacts: "@(ModuleName).zip"
-        token: ${{ secrets.GITHUB_TOKEN }}
-        bodyFile: changelog.md
+on:
+  release:
+    types: [published]
+
+jobs:
+  create-zip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create zip
+        run: |
+          zip -r release.zip .
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./release.zip
+          asset_name: release.zip
+          asset_content_type: application/zip
