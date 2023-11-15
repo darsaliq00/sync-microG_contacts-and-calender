@@ -30,4 +30,3 @@ jobs:
         tag_name: v${{ steps.version.outputs.version }}
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      body: Please check [changelog](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/Changelog.md) for changes
