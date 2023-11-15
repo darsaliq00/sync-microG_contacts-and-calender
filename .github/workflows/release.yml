@@ -31,7 +31,3 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       body: Please check [changelog](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/Changelog.md) for changes
-
-         - name: Cleanup module zip
-        run:  |
-          rm ${{ github.event.repository.name }}.zip
