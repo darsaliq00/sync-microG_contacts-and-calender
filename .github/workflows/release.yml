@@ -1,25 +1,24 @@
-name: Create zip and upload to release
+name: Create Module Zip
+
 on:
   push:
     branches:
       - main
+
 jobs:
-  create-zip:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-       - uses: actions/checkout@master
-    - name: Archive Release
-      uses: thedoctor0/zip-release@0.7.5
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Create zip file
+      run: |
+        zip -r module.zip META-INF system module.prop readme.md
+
+    - name: Upload zip file
+      uses: actions/upload-artifact@v2
       with:
-        type: 'zip'
-        filename: 'release.zip'
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./release.zip
-          asset_name: release.zip
-          asset_content_type: application/zip
+        name: module
+        path: module.zip
