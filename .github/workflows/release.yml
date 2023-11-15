@@ -1,5 +1,8 @@
 name: Create zip and upload to release
-
+on:
+  push:
+    branches:
+      - main
 on:
   release:
     types: [published]
