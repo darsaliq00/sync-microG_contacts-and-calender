@@ -1,4 +1,4 @@
-name: Create Module Zip
+name: Create and Publish Release
 
 on:
   push:
@@ -17,8 +17,13 @@ jobs:
       run: |
         zip -r module.zip META-INF system module.prop readme.md
 
-    - name: Upload zip file
-      uses: actions/upload-artifact@v2
+    - name: Create GitHub Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
       with:
-        name: module
-        path: module.zip
+        files: module.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Get the URL of the created release
+      run: echo "Release URL: ${{ steps.create_release.outputs.html_url }}"
