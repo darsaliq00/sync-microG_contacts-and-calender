@@ -2,7 +2,7 @@
 This is a Magisk module containing the files needed to sync your Google Contacts and Calendar to your smartphone.
 
 
-:warning: tested with MicroG on E/OS, A12, and A13.
+:warning: tested with MicroG on E/OS,IODE OS, LMODROID,LOS A12,A13,A15
 
 
 :warning: WARNING: Try these apks on your own risk, since I haven't tried them on older Android versions 
