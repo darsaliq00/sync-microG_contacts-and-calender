@@ -17,7 +17,7 @@ jobs:
 
     - name: Read version from update.json
       id: version
-      run: echo "::set-output name=version::$(jq -r .version update.json)"
+      run: echo "version=$(jq -r .version update.json)" >> $GITHUB_OUTPUT
 
     - name: Create zip file
       run: zip -r microG-sync-contacts-and-calendar.zip META-INF system module.prop readme.md
