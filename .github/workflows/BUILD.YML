@@ -1,4 +1,4 @@
-name: Create and Publish Release A-15
+name: Create and Publish Release
 
 on:
   push:
