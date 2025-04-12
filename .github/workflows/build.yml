@@ -1,0 +1,34 @@
+name: Create and Publish Release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Read version from update.json
+      id: version
+      run: echo "::set-output name=version::$(jq -r .version update.json)"
+
+    - name: Create zip file
+      run: zip -r microG-sync-contacts-and-calendar.zip META-INF system module.prop readme.md
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: microG-sync-contacts-and-calendar.zip
+        tag_name: v${{ steps.version.outputs.version }}
+        body: |
+          Please check [changelog](https://github.com/${{ github.repository }}/blob/${{ github.sha }}/Changelog.md) for changes.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
